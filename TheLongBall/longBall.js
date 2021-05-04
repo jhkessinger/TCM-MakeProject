@@ -27,6 +27,12 @@ var ballY = 370; //starting points
 
 // gravity variable
 var gravity = 2;
+// defines the move variable for the ball to go up
+document.addEventListener("keydown", moveUp); //any key works
+//adds an event handler to an element, calls the event and gives the function
+function moveUp() {
+  ballY -= 35;
+}
 
 function draw() {
   pullImage.drawImage(stadium, 0, 0);
@@ -35,7 +41,7 @@ function draw() {
 
   ballY += gravity;
 
-  requestAnimationFrame(draw);
+  requestAnimationFrame(draw); //similar to a for loop but draws animations more smoothly
 }
 
 draw();
