@@ -4,9 +4,9 @@ var playerTop = new Image();
 var playerBottom = new Image();
 
 // Need to find the actual png images
-//baseball.src =
-//playerTop.src =
-//playerBottom.src =
+baseball.src = "images/baseball.png";
+playerTop.src = "playerTop.png";
+playerBottom.src = "playerBottom.pg";
 
 // Loading audio clips
 
