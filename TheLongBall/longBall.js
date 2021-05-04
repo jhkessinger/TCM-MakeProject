@@ -25,10 +25,16 @@ pointscored.src = "Sounds/pointscored.mp3";
 var ballX = 225;
 var ballY = 370; //starting points
 
+// gravity variable
+var gravity = 2;
+
 function draw() {
   pullImage.drawImage(stadium, 0, 0);
 
   pullImage.drawImage(baseball, ballX, ballY);
+
+  ballY += gravity;
+
   requestAnimationFrame(draw);
 }
 
