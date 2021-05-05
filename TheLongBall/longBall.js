@@ -20,14 +20,14 @@ var pointscored = new Audio();
 air.src = "Sounds/air.mp3";
 pointscored.src = "Sounds/pointscored.mp3";
 
-// These are variables for the ball, fielders, and movement
+// These are variables for the ball, players, and movement
 var ballX = 225; // Starting x-coordinate
 var ballY = 370; // Starting y-coordinate
 var gravity = 2;
 var constant;
 var gap = 100;
 
-// Defines the move variable for the ball to go up
+// Defines the move variable for the ball to move up
 document.addEventListener("keydown", moveUp); //any key works
 
 // Adds an event handler to an element, calls the event and gives the function
@@ -59,6 +59,17 @@ function draw() {
         x: c.width,
         y: Math.floor(Math.random() * playerTop.height) - playerTop.height,
       });
+    }
+
+    // Collision detection
+    if (
+      (ballX + baseball.width >= player[i].x &&
+        ballX <= player[i].x + playerTop.width &&
+        (ballY <= player[i].y + playerTop.height ||
+          ballY + baseball.height >= player[i].y + constant)) ||
+      ballY + baseball.height >= c.height
+    ) {
+      location.reload(); // Page will refresh & game will start over
     }
   }
 
