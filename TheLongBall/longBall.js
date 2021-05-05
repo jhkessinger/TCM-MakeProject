@@ -26,6 +26,7 @@ var ballY = 370; // Starting y-coordinate
 var gravity = 2;
 var constant;
 var gap = 100;
+var points = 0; //start at zero score
 
 // Defines the move variable for the ball to move up
 document.addEventListener("keydown", moveUp); //any key works
@@ -71,11 +72,20 @@ function draw() {
     ) {
       location.reload(); // Page will refresh & game will start over
     }
+
+    if (player[i].x == 0) {
+      points++; //adds score as you play
+      pointscored.play(); //adds audio when you score
+    }
   }
 
   pullImage.drawImage(baseball, ballX, ballY);
 
   ballY += gravity;
+
+  pullImage.fillStyle = "#FFF";
+  pullImage.font = "30px Verdana";
+  pullImage.fillText("Score : " + points, 10, c.height - 20);
 
   requestAnimationFrame(draw); //similar to a for loop but draws animations more smoothly
 }
