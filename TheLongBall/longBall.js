@@ -74,7 +74,7 @@ function draw() {
     }
 
     if (player[i].x == 0) {
-      points++; //adds score as you play
+      points = points + 10; //adds score as you play
       pointscored.play(); //adds audio when you score
     }
   }
@@ -83,9 +83,9 @@ function draw() {
 
   ballY += gravity;
 
-  pullImage.fillStyle = "#FFF";
-  pullImage.font = "30px Verdana";
-  pullImage.fillText("Score : " + points, 10, c.height - 20);
+  pullImage.fillStyle = "#FFF"; //white
+  pullImage.font = "30px Verdana"; //font subject to change
+  pullImage.fillText("Score : " + points + " feet", 10, c.height - 20);
 
   requestAnimationFrame(draw); //similar to a for loop but draws animations more smoothly
 }
