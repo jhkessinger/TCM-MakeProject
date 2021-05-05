@@ -23,9 +23,10 @@ pointscored.src = "Sounds/pointscored.mp3";
 // These are variables for the ball, players, and movement
 var ballX = 225; // Starting x-coordinate
 var ballY = 370; // Starting y-coordinate
-var gravity = 2;
+var ballDY = 0; //delta y
+var gravity = 0.15;
 var constant;
-var gap = 120;
+var gap = 120; //variable for distance between gloves
 var points = 0; //start at zero score
 
 // Defines the move variable for the ball to move up
@@ -33,7 +34,7 @@ document.addEventListener("keydown", moveUp); //any key works
 
 // Adds an event handler to an element, calls the event and gives the function
 function moveUp() {
-  ballY -= 35;
+  ballDY = 4;
   air.play();
 }
 
@@ -49,13 +50,14 @@ function draw() {
   pullImage.drawImage(stadium, 0, 0);
 
   for (var i = 0; i < player.length; i++) {
-    constant = playerTop.height + gap;
+    constant = playerTop.height + gap; //to include the gap variable created earlier
     pullImage.drawImage(playerTop, player[i].x, player[i].y);
-    pullImage.drawImage(playerBottom, player[i].x, player[i].y + constant);
+    pullImage.drawImage(playerBottom, player[i].x, player[i].y + constant); //adding the gap leaves space
 
     player[i].x--;
 
     if (player[i].x == 650) {
+      //variable for coordinate when new player is drawn
       player.push({
         //draws a new player; can change
         x: c.width, //difficulty with the xyz variable
@@ -69,7 +71,7 @@ function draw() {
         ballX <= player[i].x + playerTop.width &&
         (ballY <= player[i].y + playerTop.height ||
           ballY + baseball.height >= player[i].y + constant)) ||
-      ballY + baseball.height >= c.height
+      ballY + baseball.height >= c.height //long code that basically says if ball height or width touches player, game over
     ) {
       location.reload(); // Page will refresh & game will start over
     }
@@ -83,7 +85,7 @@ function draw() {
 
   pullImage.drawImage(baseball, ballX, ballY);
 
-  ballY += gravity;
+  ballY -= ballDY -= gravity;
 
   pullImage.fillStyle = "#FFF"; //white
   pullImage.font = "30px BadaBoomBB"; //change this to cool font
