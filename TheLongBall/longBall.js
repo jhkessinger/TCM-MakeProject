@@ -25,7 +25,7 @@ var ballX = 225; // Starting x-coordinate
 var ballY = 370; // Starting y-coordinate
 var gravity = 2;
 var constant;
-var gap = 100;
+var gap = 120;
 var points = 0; //start at zero score
 
 // Defines the move variable for the ball to move up
@@ -55,9 +55,10 @@ function draw() {
 
     player[i].x--;
 
-    if (player[i].x == 125) {
+    if (player[i].x == 650) {
       player.push({
-        x: c.width,
+        //draws a new player; can change
+        x: c.width, //difficulty with the xyz variable
         y: Math.floor(Math.random() * playerTop.height) - playerTop.height,
       });
     }
@@ -73,7 +74,8 @@ function draw() {
       location.reload(); // Page will refresh & game will start over
     }
 
-    if (player[i].x == 0) {
+    if (player[i].x == 175) {
+      //points go when x goes through the gap; had to move it forward because the player build is too wide
       points = points + 10; //adds score as you play
       pointscored.play(); //adds audio when you score
     }
@@ -84,7 +86,7 @@ function draw() {
   ballY += gravity;
 
   pullImage.fillStyle = "#FFF"; //white
-  pullImage.font = "30px Verdana"; //font subject to change
+  pullImage.font = "30px BadaBoomBB"; //change this to cool font
   pullImage.fillText("Score : " + points + " feet", 10, c.height - 20);
 
   requestAnimationFrame(draw); //similar to a for loop but draws animations more smoothly
