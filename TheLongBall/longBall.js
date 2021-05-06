@@ -23,12 +23,23 @@ pointscored.src = "Sounds/pointscored.mp3";
 // These are variables for the ball, players, and movement
 var ballX = 225; // Starting x-coordinate
 var ballY = 370; // Starting y-coordinate
-var ballDY = 0; //delta y
+var ballDY = 0; //delta y for gravity
 var gravity = 0.15;
 var constant;
 var gap = 120; //variable for distance between gloves
 var points = 0; //start at zero score
+let button;
 
+function setup() {
+  button = createButton("Restart?");
+  button.position(50, 50);
+  button.mousePressed(restart);
+  button.hide();
+}
+
+function restart() {
+  location.reload();
+}
 // Defines the move variable for the ball to move up
 document.addEventListener("keydown", moveUp); //any key works
 
@@ -46,7 +57,7 @@ player[0] = {
   y: 0,
 };
 
-function draw() {
+function drawGame() {
   pullImage.drawImage(stadium, 0, 0);
 
   for (var i = 0; i < player.length; i++) {
@@ -56,7 +67,7 @@ function draw() {
 
     player[i].x--;
 
-    if (player[i].x == 650) {
+    if (player[i].x == 700) {
       //variable for coordinate when new player is drawn
       player.push({
         //draws a new player; can change
@@ -73,7 +84,9 @@ function draw() {
           ballY + baseball.height >= player[i].y + constant)) ||
       ballY + baseball.height >= c.height //long code that basically says if ball height or width touches player, game over
     ) {
-      location.reload(); // Page will refresh & game will start over
+      button.show();
+      //gameRunning = false;
+      //location.reload(); // Page will refresh & game will start over
     }
 
     if (player[i].x == 175) {
@@ -91,7 +104,7 @@ function draw() {
   pullImage.font = "30px BadaBoomBB"; //change this to cool font
   pullImage.fillText("Score : " + points + " feet", 10, c.height - 20);
 
-  requestAnimationFrame(draw); //similar to a for loop but draws animations more smoothly
+  requestAnimationFrame(drawGame); //similar to a for loop but draws animations more smoothly
 }
 
-draw();
+drawGame();
