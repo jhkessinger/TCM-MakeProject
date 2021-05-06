@@ -29,10 +29,11 @@ var constant;
 var gap = 120; //variable for distance between gloves
 var points = 0; //start at zero score
 let button;
+var gameState = true;
 
 function setup() {
-  button = createButton("Restart?");
-  button.position(50, 50);
+  button = createButton("RESTART?");
+  button.position(550, 60);
   button.mousePressed(restart);
   button.hide();
 }
@@ -59,47 +60,48 @@ player[0] = {
 
 function drawGame() {
   pullImage.drawImage(stadium, 0, 0);
+  if (gameState === true) {
+    for (var i = 0; i < player.length; i++) {
+      constant = playerTop.height + gap; //to include the gap variable created earlier
+      pullImage.drawImage(playerTop, player[i].x, player[i].y);
+      pullImage.drawImage(playerBottom, player[i].x, player[i].y + constant); //adding the gap leaves space
 
-  for (var i = 0; i < player.length; i++) {
-    constant = playerTop.height + gap; //to include the gap variable created earlier
-    pullImage.drawImage(playerTop, player[i].x, player[i].y);
-    pullImage.drawImage(playerBottom, player[i].x, player[i].y + constant); //adding the gap leaves space
+      player[i].x--;
 
-    player[i].x--;
+      if (player[i].x == 700) {
+        //variable for coordinate when new player is drawn
+        player.push({
+          //draws a new player; can change
+          x: c.width, //difficulty with the xyz variable
+          y: Math.floor(Math.random() * playerTop.height) - playerTop.height,
+        });
+      }
 
-    if (player[i].x == 700) {
-      //variable for coordinate when new player is drawn
-      player.push({
-        //draws a new player; can change
-        x: c.width, //difficulty with the xyz variable
-        y: Math.floor(Math.random() * playerTop.height) - playerTop.height,
-      });
+      // Collision detection
+      if (
+        (ballX + baseball.width >= player[i].x &&
+          ballX <= player[i].x + playerTop.width &&
+          (ballY <= player[i].y + playerTop.height ||
+            ballY + baseball.height >= player[i].y + constant)) ||
+        ballY + baseball.height >= c.height //long code that basically says if ball height or width touches player, game over
+      ) {
+        button.show();
+        gameState = false;
+        //gameRunning = false;
+        //location.reload(); // Page will refresh & game will start over
+      }
+
+      if (player[i].x == 175) {
+        //points go when x goes through the gap; had to move it forward because the player build is too wide
+        points = points + 10; //adds score as you play
+        pointscored.play(); //adds audio when you score
+      }
     }
 
-    // Collision detection
-    if (
-      (ballX + baseball.width >= player[i].x &&
-        ballX <= player[i].x + playerTop.width &&
-        (ballY <= player[i].y + playerTop.height ||
-          ballY + baseball.height >= player[i].y + constant)) ||
-      ballY + baseball.height >= c.height //long code that basically says if ball height or width touches player, game over
-    ) {
-      button.show();
-      //gameRunning = false;
-      //location.reload(); // Page will refresh & game will start over
-    }
+    pullImage.drawImage(baseball, ballX, ballY);
 
-    if (player[i].x == 175) {
-      //points go when x goes through the gap; had to move it forward because the player build is too wide
-      points = points + 10; //adds score as you play
-      pointscored.play(); //adds audio when you score
-    }
+    ballY -= ballDY -= gravity;
   }
-
-  pullImage.drawImage(baseball, ballX, ballY);
-
-  ballY -= ballDY -= gravity;
-
   pullImage.fillStyle = "#FFF"; //white
   pullImage.font = "30px BadaBoomBB"; //change this to cool font
   pullImage.fillText("Score : " + points + " feet", 10, c.height - 20);
