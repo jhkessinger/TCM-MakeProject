@@ -8,12 +8,14 @@ var playerTop = new Image();
 var playerBottom = new Image();
 var stadium = new Image();
 var titleScreen = new Image();
+var gameOverScreen = new Image();
 
 baseball.src = "Images/baseball.png";
 playerTop.src = "Images/playerTop.png";
 playerBottom.src = "Images/playerBottom.png";
 stadium.src = "Images/stadium.png";
 titleScreen.src = "Images/titleScreen.png";
+gameOverScreen.src = "Images/gameOverScreen.png";
 
 // Loading audio clips
 var air = new Audio();
@@ -34,8 +36,8 @@ let resetButton;
 var gameState = true;
 
 function setup() {
-  resetButton = createButton("RESTART?");
-  resetButton.position(470, 60);
+  resetButton = createButton("RESTART");
+  resetButton.position(470, 450);
   resetButton.mousePressed(restart);
   resetButton.hide();
 }
@@ -109,7 +111,11 @@ function drawGame() {
     pullImage.fillText("Score : " + points + " feet", 10, c.height - 20);
   }
   if (gameState === false) {
-    pullImage.drawImage(titleScreen, 0, 0);
+    pullImage.drawImage(stadium, 0, 0);
+    pullImage.fillStyle = "#ff3030"; //white
+    pullImage.font = "60px BadaBoomBB"; //change this to cool font
+    pullImage.fillText("GAME OVER", 320, 250);
+    pullImage.fillText("Your score was: " + points + " feet", 245, 300);
   }
   requestAnimationFrame(drawGame); //similar to a for loop but draws animations more smoothly
 }
