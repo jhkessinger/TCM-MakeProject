@@ -7,11 +7,13 @@ var baseball = new Image();
 var playerTop = new Image();
 var playerBottom = new Image();
 var stadium = new Image();
+var titleScreen = new Image();
 
 baseball.src = "Images/baseball.png";
 playerTop.src = "Images/playerTop.png";
 playerBottom.src = "Images/playerBottom.png";
 stadium.src = "Images/stadium.png";
+titleScreen.src = "Images/titleScreen.png";
 
 // Loading audio clips
 var air = new Audio();
@@ -33,7 +35,7 @@ var gameState = true;
 
 function setup() {
   button = createButton("RESTART?");
-  button.position(550, 60);
+  button.position(470, 60);
   button.mousePressed(restart);
   button.hide();
 }
@@ -59,8 +61,9 @@ player[0] = {
 };
 
 function drawGame() {
-  pullImage.drawImage(stadium, 0, 0);
   if (gameState === true) {
+    pullImage.drawImage(stadium, 0, 0);
+
     for (var i = 0; i < player.length; i++) {
       constant = playerTop.height + gap; //to include the gap variable created earlier
       pullImage.drawImage(playerTop, player[i].x, player[i].y);
@@ -101,11 +104,14 @@ function drawGame() {
     pullImage.drawImage(baseball, ballX, ballY);
 
     ballY -= ballDY -= gravity;
-  }
-  pullImage.fillStyle = "#FFF"; //white
-  pullImage.font = "30px BadaBoomBB"; //change this to cool font
-  pullImage.fillText("Score : " + points + " feet", 10, c.height - 20);
 
+    pullImage.fillStyle = "#FFF"; //white
+    pullImage.font = "30px BadaBoomBB"; //change this to cool font
+    pullImage.fillText("Score : " + points + " feet", 10, c.height - 20);
+  }
+  if (gameState === false) {
+    pullImage.drawImage(titleScreen, 0, 0);
+  }
   requestAnimationFrame(drawGame); //similar to a for loop but draws animations more smoothly
 }
 
