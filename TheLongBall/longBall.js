@@ -22,7 +22,7 @@ var pointscored = new Audio();
 air.src = "Sounds/air.mp3";
 pointscored.src = "Sounds/pointscored.mp3";
 
-// These are variables for the ball, players, and movement
+// These are variables for the ball, players, movement and buttons
 var ballX = 225; // Starting x-coordinate
 var ballY = 370; // Starting y-coordinate
 var ballDY = 0; //delta y for gravity
@@ -30,21 +30,19 @@ var gravity = 0.15;
 var constant;
 var gap = 120; //variable for distance between gloves
 var points = 0; //start at zero score
-let button;
+let resetButton;
 var gameState = true;
 
 function setup() {
-  button = createButton("RESTART?");
-  button.position(470, 60);
-  button.mousePressed(restart);
-  button.hide();
+  resetButton = createButton("RESTART?");
+  resetButton.position(470, 60);
+  resetButton.mousePressed(restart);
+  resetButton.hide();
 }
 
 function restart() {
   location.reload();
 }
-// Defines the move variable for the ball to move up
-document.addEventListener("keydown", moveUp); //any key works
 
 // Adds an event handler to an element, calls the event and gives the function
 function moveUp() {
@@ -63,6 +61,9 @@ player[0] = {
 function drawGame() {
   if (gameState === true) {
     pullImage.drawImage(stadium, 0, 0);
+
+    // Defines the move variable for the ball to move up
+    document.addEventListener("keydown", moveUp); //any key works
 
     for (var i = 0; i < player.length; i++) {
       constant = playerTop.height + gap; //to include the gap variable created earlier
@@ -88,10 +89,8 @@ function drawGame() {
             ballY + baseball.height >= player[i].y + constant)) ||
         ballY + baseball.height >= c.height //long code that basically says if ball height or width touches player, game over
       ) {
-        button.show();
+        resetButton.show();
         gameState = false;
-        //gameRunning = false;
-        //location.reload(); // Page will refresh & game will start over
       }
 
       if (player[i].x == 175) {
