@@ -126,9 +126,9 @@ function drawGame() {
     pullImage.fillStyle = "#ee0000"; //white
     pullImage.font = "60px BadaBoomBB"; //change this to cool font
     pullImage.fillText("GAME OVER", 320, 100);
-    pullImage.fillText("Score: " + points + "", 390, 360);
+    pullImage.fillText("Score: " + points + " feet", 335, 360);
   }
-  // }
+
   // if (gameBegin === false) {
   //   pullImage.drawImage(titleScreen, 0, 0);
   //   startButton.show();
