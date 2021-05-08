@@ -33,13 +33,23 @@ var constant;
 var gap = 120; //variable for distance between gloves
 var points = 0; //start at zero score
 let resetButton;
+let startButton;
 var gameState = true;
+var gameBegin = false;
 
 function setup() {
   resetButton = createButton("RESTART");
-  resetButton.position(470, 450);
+  resetButton.position(465, 400);
   resetButton.mousePressed(restart);
   resetButton.hide();
+  startButton = createButton("START");
+  startButton.position(465, 400);
+  startButton.mousePressed(startGame);
+  startButton.hide();
+}
+
+function startGame() {
+  gameBegin = true;
 }
 
 function restart() {
@@ -61,6 +71,7 @@ player[0] = {
 };
 
 function drawGame() {
+  // if (gameBegin === true) {
   if (gameState === true) {
     pullImage.drawImage(stadium, 0, 0);
 
@@ -112,11 +123,16 @@ function drawGame() {
   }
   if (gameState === false) {
     pullImage.drawImage(stadium, 0, 0);
-    pullImage.fillStyle = "#ff3030"; //white
+    pullImage.fillStyle = "#ee0000"; //white
     pullImage.font = "60px BadaBoomBB"; //change this to cool font
-    pullImage.fillText("GAME OVER", 320, 250);
-    pullImage.fillText("Your score was: " + points + " feet", 245, 300);
+    pullImage.fillText("GAME OVER", 320, 100);
+    pullImage.fillText("Score: " + points + "", 390, 360);
   }
+  // }
+  // if (gameBegin === false) {
+  //   pullImage.drawImage(titleScreen, 0, 0);
+  //   startButton.show();
+  // }
   requestAnimationFrame(drawGame); //similar to a for loop but draws animations more smoothly
 }
 
