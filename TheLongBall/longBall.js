@@ -37,11 +37,11 @@ var gameBegin = false;
 
 function setup() {
   mainMenuButton = createButton("Main Menu");
-  mainMenuButton.position(465, 400);
+  mainMenuButton.position(460, 400);
   mainMenuButton.mousePressed(mainMenu);
   mainMenuButton.hide();
   startButton = createButton("Start");
-  startButton.position(475, 360);
+  startButton.position(485, 360);
   startButton.mousePressed(startGame);
   startButton.hide();
 }
@@ -56,7 +56,7 @@ function mainMenu() {
 
 // Adds an event handler to an element, calls the event and gives the function
 function moveUp() {
-  ballDY = 4;
+  ballDY = 3.5;
   air.play();
 }
 
