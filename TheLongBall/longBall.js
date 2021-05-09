@@ -18,9 +18,11 @@ titleScreen.src = "Images/titleScreen.png";
 // Loading audio clips
 var air = new Audio();
 var pointscored = new Audio();
+var lose = new Audio();
 
 air.src = "Sounds/air.mp3";
 pointscored.src = "Sounds/pointscored.mp3";
+lose.src = "Sounds/lose.mp3";
 
 // These are variables for the ball, players, movement and buttons
 var ballX = 225; // Starting x-coordinate
@@ -84,7 +86,7 @@ function drawGame() {
 
         player[i].x--;
 
-        if (player[i].x == 700) {
+        if (player[i].x == int(random(setInterval(1, 5)))) {
           //variable for coordinate when new player is drawn
           player.push({
             //draws a new player; can change
@@ -102,6 +104,7 @@ function drawGame() {
           ballY + baseball.height >= c.height //long code that basically says if ball height or width touches player, game over
         ) {
           mainMenuButton.show();
+          lose.play();
           gameState = false;
         }
 
