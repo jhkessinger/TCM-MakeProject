@@ -30,18 +30,18 @@ var gravity = 0.1;
 var constant;
 var gap = 120; //variable for distance between gloves
 var points = 0; //start at zero score
-let resetButton;
+let mainMenuButton;
 let startButton;
 var gameState = true;
 var gameBegin = false;
 
 function setup() {
-  resetButton = createButton("RESTART");
-  resetButton.position(465, 400);
-  resetButton.mousePressed(restart);
-  resetButton.hide();
-  startButton = createButton("START");
-  startButton.position(465, 400);
+  mainMenuButton = createButton("Main Menu");
+  mainMenuButton.position(465, 400);
+  mainMenuButton.mousePressed(mainMenu);
+  mainMenuButton.hide();
+  startButton = createButton("Start");
+  startButton.position(475, 360);
   startButton.mousePressed(startGame);
   startButton.hide();
 }
@@ -50,7 +50,7 @@ function startGame() {
   gameBegin = true;
 }
 
-function restart() {
+function mainMenu() {
   location.reload();
 }
 
@@ -101,7 +101,7 @@ function drawGame() {
               ballY + baseball.height >= player[i].y + constant)) ||
           ballY + baseball.height >= c.height //long code that basically says if ball height or width touches player, game over
         ) {
-          resetButton.show();
+          mainMenuButton.show();
           gameState = false;
         }
 
