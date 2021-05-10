@@ -101,7 +101,7 @@ function drawGame() {
 
         player[i].x--;
         // *** We strived to incorporate this code as it was our goal to randomize the distance between each set of players
-        // *** Even though we were not success in building this code, we want to show you what we were thinking
+        // *** Even though we were not successful in building this code, we want to show you what we were thinking
         // var rand_coord = Math.floor(Math.random() * (900 - 600 + 1) + 600);
         // console.log("rand_coord: " + rand_coord);
 
